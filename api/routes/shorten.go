@@ -1,9 +1,10 @@
 package routes
 
 import (
+	"github.com/thiagocardoso1988/go-url-shortener/api/helpers"
+
 	"time"
 
-	"github.com/gofiber/fiber"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -42,5 +43,4 @@ func ShortenURL(c *fiber.Ctx) error {
 
 	// enforce https, SSL
 	body.URL = helpers.EnforceHTTP(body.URL)
-
 }
