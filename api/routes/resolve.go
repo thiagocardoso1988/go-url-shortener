@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"github.com/thiagocardoso1988/go-url-shortener/api/database"
+	"github.com/thiagocardoso1988/go-url-shortener/database"
 
 	"github.com/go-redis/redis/v8"
 	"github.com/gofiber/fiber/v2"

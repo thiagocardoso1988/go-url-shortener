@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/thiagocardoso1988/go-url-shortener/api/routes"
+	"github.com/thiagocardoso1988/go-url-shortener/routes"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -26,5 +26,5 @@ func main() {
 	app := fiber.New()
 	app.Use(logger.New())
 	setupRoutes(app)
-	log.Fatal(app.Listen(os.Getenv("APP_PORT")))
+	log.Fatal(app.Listen(os.Getenv("DOMAIN")))
 }
