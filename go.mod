@@ -12,6 +12,7 @@ require (
 require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/go-redis/redis/v8 v8.11.5
+	github.com/google/uuid v1.3.0
 	github.com/joho/godotenv v1.4.0
 	github.com/klauspost/compress v1.15.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
