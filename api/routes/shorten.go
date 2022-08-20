@@ -8,6 +8,7 @@ import (
 	"github.com/thiagocardoso1988/go-url-shortener/api/database"
 	"github.com/thiagocardoso1988/go-url-shortener/api/helpers"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/go-redis/redis/v8"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
@@ -96,7 +97,23 @@ func ShortenURL(c *fiber.Ctx) error {
 		})
 	}
 
+	resp := response{
+		URL:             body.URL,
+		CustomShort:     "",
+		Expire:          body.Expire,
+		XRateRemaining:  10,
+		XRateLimitReset: 30,
+	}
+
 	r2.Decr(database.Ctx, c.IP())
 
-	return nil
+	value, _ = r2.Get(database.Ctx, c.IP()).Result()
+	resp.XRateRemaining, _ = strconv.Atoi(value)
+
+	ttl, _ := r2.TTL(database.Ctx, c.IP()).Result()
+	resp.XRateLimitReset = ttl / time.Nanosecond / time.Minute
+
+	resp.CustomShort = os.Getenv("DOMAIN") + "/" + id
+
+	return c.Status(fiber.StatusOK).JSON(resp)
 }
